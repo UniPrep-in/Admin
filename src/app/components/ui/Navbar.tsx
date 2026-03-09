@@ -89,19 +89,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1 bg-slate-100/50 rounded-full p-1">
-            {navlinks.map((item, index) => (
-              <Link
-                key={index}
-                href={item.link}
-                className="relative px-4 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors duration-200 rounded-full hover:bg-white/60"
-              >
-                {item.title}
-              </Link>
-            ))}
-          </div>
-
           {/* User Actions */}
           <div className="flex items-center gap-2">
             {user ? (
@@ -197,17 +184,6 @@ export default function Navbar() {
               className="fixed top-20 left-4 right-4 bg-white rounded-3xl shadow-2xl shadow-black/10 border border-slate-100 z-50 md:hidden overflow-hidden"
             >
               <div className="p-4 space-y-1">
-                {navlinks.map((item, index) => (
-                  <Link
-                    key={index}
-                    href={item.link}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center px-4 py-3 text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-2xl transition-colors duration-200"
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-                
                 {!user && (
                   <div className="pt-2 mt-2 border-t border-slate-100">
                     <Link
