@@ -1,5 +1,5 @@
 "use client";
-
+import Loader from "@/app/components/ui/loader";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useProfileStore } from "../../../store/profileStore";
@@ -40,11 +40,13 @@ export default function UpdateProfileForm() {
   }, []);
 
   if (checkingAuth) {
-    return <p className="text-center mt-10">Checking authentication...</p>;
+    return <div className="flex justify-center items-center">
+      <Loader />
+    </div>;
   }
 
 return (
-  <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-slate-200 to-slate-400">
+  <div className="flex justify-center items-center bg-none">
     <form
    onSubmit={async (e) => {
     e.preventDefault();
@@ -55,12 +57,8 @@ return (
       router.push("/profile");
     }
   }}
-      className="bg-white p-8 rounded-2xl shadow-2xl w-96 space-y-5"
+      className="bg-none w-96 space-y-5"
     >
-      <h2 className="text-2xl font-bold text-center text-gray-800">
-        Complete Profile
-      </h2>
-
       <input
         type="text"
         placeholder="Full Name"
@@ -90,7 +88,7 @@ return (
       <input
         type="file"
         accept="image/*"
-        className="w-full text-black"
+        className="w-full text-sm text-white px-4 py-2 rounded-full bg-linear-to-br from-blue-400 to-blue-500"
         onChange={(e) => setFile(e.target.files?.[0] || null)}
         required
       />
@@ -102,9 +100,7 @@ return (
       <button
   type="submit"
   disabled={loading || imageError != null}
-  className="w-full bg-black text-white font-semibold p-2 rounded-lg 
-             hover:bg-blue-700 transition duration-200 
-             disabled:bg-gray-400 disabled:text-gray-200"
+  className="w-full bg-emerald-300 border text-black p-2 rounded-lg"
 >
   {loading ? "Saving..." : "Save Profile"}
 </button>

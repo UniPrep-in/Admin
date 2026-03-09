@@ -5,7 +5,7 @@ import ProfilePage from "../profile/page";
 import { useEffect, useState } from "react";
 import { createClient } from "../lib/supabase/client";
 import { useRouter } from "next/navigation";
-import Navbar from "../components/ui/Navbar";
+import Navbar from "../components/Navbar";
 
 type Tab = "profile" | "create" | "list";
 

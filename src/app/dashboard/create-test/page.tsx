@@ -3,7 +3,7 @@ import { createClient } from "@/app/lib/supabase/client";
 import { useTestStore } from "@/store/testStore";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
-import Navbar from "@/app/components/ui/Navbar";
+import Navbar from "@/app/components/Navbar";
 export default  function CreateTestPage() {
   const {
     year,
