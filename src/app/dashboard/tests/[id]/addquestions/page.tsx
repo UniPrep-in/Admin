@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import QuestionUpload from "./QuestionUpload";
-import Navbar from "@/app/components/ui/Navbar";
+import Navbar from "@/app/components/Navbar";
 
 export default function UploadPage() {
   const { id } = useParams();

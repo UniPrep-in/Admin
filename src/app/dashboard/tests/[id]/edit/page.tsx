@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useTestStore } from "@/store/testStore";
-import Navbar from "@/app/components/ui/Navbar";
+import Navbar from "@/app/components/Navbar";
 
 export default function EditExamPage() {
   const params = useParams();
