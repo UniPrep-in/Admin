@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { createClient } from "../../lib/supabase/client";
+import { createClient } from "@/app/lib/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Menu, X, ChevronDown, LogOut, User as UserIco0n } from "lucide-react";
+import { ChevronDown, LogOut } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 export default function Navbar() {
@@ -40,20 +40,13 @@ export default function Navbar() {
       subscription.unsubscribe();
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [supabase]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setIsProfileOpen(false);
     router.push('/auth')
   };
-
-  const navlinks = [
-    { title: "Home", link: "/" },
-    { title: "PYQs", link: "/pyqs" },
-    { title: "Materials", link: "/materials" },
-    { title: "FAQs", link: "/faqs" },
-  ];
 
   const getInitials = () => {
     if (user?.user_metadata?.display_name) {

@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import QuestionsTable from "./QuestionsTable";
-import Navbar from "@/app/components/ui/Navbar";
+import Navbar from "@/app/components/Navbar";
 
 export default function QuestionsPage() {
   const { id } = useParams();

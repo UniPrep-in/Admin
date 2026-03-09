@@ -3,7 +3,7 @@
 import { useTestStore } from "@/store/testStore";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Navbar from "@/app/components/ui/Navbar";
+import Navbar from "@/app/components/Navbar";
 
 
 export default function TestsPage() {

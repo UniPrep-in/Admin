@@ -1,9 +1,6 @@
 "use client";
-import { createClient } from "@/app/lib/supabase/client";
 import { useTestStore } from "@/store/testStore";
-import { useEffect } from "react";
-import { redirect } from "next/navigation";
-import Navbar from "@/app/components/ui/Navbar";
+import Navbar from "@/app/components/Navbar";
 export default  function CreateTestPage() {
   const {
     year,
@@ -23,70 +20,82 @@ export default  function CreateTestPage() {
   };
 
 return (
-  <div>
-    <Navbar/>
-  
-  <div className="max-w-md mx-auto mt-10 bg-white p-6 shadow rounded">
-    <h2 className="text-xl font-bold mb-4 text-gray-800">Create Exam</h2>
+  <div className="max-w-2xl mx-auto mt-8 px-4">
+    <div className="bg-white border border-neutral-200 rounded-2xl shadow-sm p-8">
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold text-neutral-900">Create Exam</h1>
+        <p className="text-sm text-neutral-500">Configure a new mock test for students</p>
+      </div>
 
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <input
-        type="number"
-        placeholder="Year"
-        value={year}
-        onChange={(e) => setField("year", e.target.value)}
-        className="w-full border p-2 rounded bg-white text-gray-900 placeholder-gray-500"
-      />
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col gap-1">
+            <label className="text-sm text-neutral-600">Year</label>
+            <input
+              type="number"
+              placeholder="2024"
+              value={year}
+              onChange={(e) => setField("year", e.target.value)}
+              className="border text-neutral-500 border-neutral-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setField("title", e.target.value)}
-        className="w-full border p-2 rounded bg-white text-gray-900 placeholder-gray-500"
-      />
+          <div className="flex flex-col gap-1">
+            <label className="text-sm text-neutral-600">Duration (minutes)</label>
+            <input
+              type="number"
+              placeholder="180"
+              value={duration_minutes}
+              onChange={(e) => setField("duration_minutes", e.target.value)}
+              className="border text-neutral-500 border-neutral-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
 
-      <input
-        type="number"
-        placeholder="Duration (minutes)"
-        value={duration_minutes}
-        onChange={(e) => setField("duration_minutes", e.target.value)}
-        className="w-full border p-2 rounded bg-white text-gray-900 placeholder-gray-500"
-      />
+        <div className="flex flex-col gap-1">
+          <label className="text-sm text-neutral-600">Exam Title</label>
+          <input
+            type="text"
+            placeholder="UPSC Prelims Mock Test"
+            value={title}
+            onChange={(e) => setField("title", e.target.value)}
+            className="border text-neutral-500 border-neutral-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-      <input
-        type="number"
-        placeholder="Mark for Right Answer"
-        value={marks}
-        onChange={(e) => setField("marks", e.target.value)}
-        className="w-full border p-2 rounded bg-white text-gray-900 placeholder-gray-500"
-      />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col gap-1">
+            <label className="text-sm text-neutral-600">Marks for Correct Answer</label>
+            <input
+              type="number"
+              placeholder="4"
+              value={marks}
+              onChange={(e) => setField("marks", e.target.value)}
+              className="border text-neutral-500 border-neutral-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-      <input
-        type="number"
-        placeholder="Mark for wrong Answer"
-        value={neg_marks}
-        onChange={(e) => setField("neg_marks", e.target.value)}
-        className="w-full border p-2 rounded bg-white text-gray-900 placeholder-gray-500"
-      />
+          <div className="flex flex-col gap-1">
+            <label className="text-sm text-neutral-600">Negative Marks</label>
+            <input
+              type="number"
+              placeholder="1"
+              value={neg_marks}
+              onChange={(e) => setField("neg_marks", e.target.value)}
+              className="border text-neutral-500 border-neutral-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
 
-      {/* <input
-        type="number"
-        placeholder="Total Marks"
-        value={total_marks}
-        onChange={(e) => setField("total_marks", e.target.value)}
-        className="w-full border p-2 rounded bg-white text-gray-900 placeholder-gray-500"
-      /> */}
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="bg-blue-600 text-white w-full py-2 rounded"
-      >
-        {loading ? "Creating..." : "Create Exam"}
-      </button>
-    </form>
-  </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-black text-white py-3 rounded-full font-medium hover:bg-neutral-800 transition disabled:opacity-50"
+        >
+          {loading ? "Creating Exam..." : "Create Exam"}
+        </button>
+      </form>
+    </div>
   </div>
 );
 }

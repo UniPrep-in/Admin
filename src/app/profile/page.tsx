@@ -1,14 +1,17 @@
 "use client";
-
-import { useEffect } from "react";
+import Loader from "../components/ui/loader";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useProfileStore } from "../../store/profileStore";
 import { createClient } from "../lib/supabase/client";
-import Navbar from "../components/ui/Navbar";
+import Navbar from "../components/Navbar";
+import UpdateProfileForm from "./update-profile/UpdateProfileForm";
 
 export default function ProfilePage() {
   const router = useRouter();
   const supabase = createClient();
+
+  const [editing, setEditing] = useState(false);
 
   const {
     fullName,
@@ -39,46 +42,90 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
-        <p className="text-lg font-semibold text-gray-700">
-          Loading profile...
-        </p>
+        <Loader />
+      </div>
+    );
+  }
+
+  if (editing) {
+    return (
+      <div className="min-h-screen bg-neutral-100">
+        <Navbar />
+        <div className="max-w-3xl mx-auto mt-10 px-4">
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="text-xl text-black">Edit Profile</h1>
+              <button
+                onClick={() => setEditing(false)}
+                className="text-sm text-white bg-black px-4 py-2 rounded-full shadow-lg"
+              >
+                Back
+              </button>
+            </div>
+            <UpdateProfileForm />
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-slate-200 to-slate-400">
-     <Navbar/>
-      <div className="bg-white p-8 rounded-2xl shadow-2xl w-96 text-center space-y-4">
-        <h2 className="text-2xl font-bold text-gray-800">
-          My Profile
-        </h2>
+    <div className="min-h-screen bg-neutral-100">
+      <Navbar />
 
-        {imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={imageUrl}
-            alt="Profile"
-            className="w-28 h-28 rounded-full mx-auto object-cover border-4 border-blue-500"
-          />
-        ) : (
-          <div className="w-28 h-28 rounded-full mx-auto bg-gray-300 flex items-center justify-center">
-            <span className="text-gray-600">No Image</span>
+      <div className="max-w-3xl mx-auto mt-10 px-4">
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          {/* Profile Header */}
+          <div className="flex flex-col sm:flex-row items-center gap-6 border-b pb-6">
+            <div className="w-24 h-24 rounded-full bg-neutral-200 overflow-hidden flex items-center justify-center text-2xl font-semibold text-neutral-700">
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt="profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                fullName?.charAt(0)?.toUpperCase()
+              )}
+            </div>
+            <div className="text-center sm:text-left">
+              <h1 className="text-2xl font-semibold text-neutral-900">
+                {fullName || "User"}
+              </h1>
+              <p className="text-sm text-neutral-500">Admin Profile</p>
+            </div>
           </div>
-        )}
 
-        <div className="text-left space-y-2 text-gray-700">
-          <p><strong>Name:</strong> {fullName}</p>
-          <p><strong>Phone:</strong> {phone}</p>
-          <p><strong>Address:</strong> {address}</p>
+          {/* Profile Info */}
+          <div className="grid sm:grid-cols-2 gap-6 mt-6 text-sm">
+            <div>
+              <p className="text-neutral-500">Full Name</p>
+              <p className="font-medium text-neutral-900">{fullName || "Not provided"}</p>
+            </div>
+
+            <div>
+              <p className="text-neutral-500">Phone</p>
+              <p className="font-medium text-neutral-900">{phone || "Not provided"}</p>
+            </div>
+
+            <div className="sm:col-span-2">
+              <p className="text-neutral-500">Address</p>
+              <p className="font-medium text-neutral-900">
+                {address || "No address added"}
+              </p>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="mt-8 flex justify-end">
+            <button
+              onClick={() => setEditing(true)}
+              className="bg-black text-white px-6 py-2 rounded-lg hover:bg-neutral-800 transition"
+            >
+              Edit Profile
+            </button>
+          </div>
         </div>
-
-        <button
-          onClick={() => router.push("/profile/update-profile")}
-          className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          Edit Profile
-        </button>
       </div>
     </div>
   );
