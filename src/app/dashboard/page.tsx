@@ -59,7 +59,7 @@ export default function Dashboard() {
         {/* Tabs */}
         <div className="flex gap-2 bg-white rounded-full border border-neutral-200 p-2">
           <button
-            ref={(el) => (tabRefs.current[0] = el)}
+            ref={(el) => { tabRefs.current[0] = el; }}
             onClick={() => {
               gsap.fromTo(tabRefs.current[0], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
               setActiveTab("profile");
@@ -74,7 +74,7 @@ export default function Dashboard() {
           </button>
 
           <button
-            ref={(el) => (tabRefs.current[1] = el)}
+            ref={(el) => { tabRefs.current[1] = el; }}
             onClick={() => {
               gsap.fromTo(tabRefs.current[1], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
               setActiveTab("create");
@@ -89,7 +89,7 @@ export default function Dashboard() {
           </button>
 
           <button
-            ref={(el) => (tabRefs.current[2] = el)}
+            ref={(el) => { tabRefs.current[2] = el; }}
             onClick={() => {
               gsap.fromTo(tabRefs.current[2], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
               setActiveTab("list");
