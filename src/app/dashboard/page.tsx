@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
+import { Toaster } from "react-hot-toast";
 
 type Tab = "profile" | "create" | "list";
 
@@ -54,6 +55,7 @@ export default function Dashboard() {
   return (
     <main className="flex flex-col items-center min-h-screen bg-neutral-100">
       <Navbar />
+      <Toaster position="top-right" />
 
       <div className="w-full max-w-6xl py-2 bg-neutral-100">
         {/* Tabs */}
