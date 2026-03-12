@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/app/lib/auth/requireAdmin";
 
-
-
-
 // creating questions and options 
 export async function POST(
   req: Request,
@@ -35,6 +32,7 @@ export async function POST(
           test_id,
           question_text: q.question_text,
           question_order: q.question_order,
+          question_image: q.question_image ?? null,
         })
         .select()
         .single();
@@ -108,6 +106,7 @@ export async function GET(
         id,
         question_text,
         question_order,
+        question_image,
         options (
           id,
           option_text,
@@ -135,5 +134,3 @@ export async function GET(
     );
   }
 }
-
-

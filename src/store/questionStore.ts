@@ -3,6 +3,7 @@ import { create } from "zustand";
 type QuestionRow = {
   question_order: number;
   question_text: string;
+  question_image?: string | null;
   option_a: string;
   option_b: string;
   option_c: string;
