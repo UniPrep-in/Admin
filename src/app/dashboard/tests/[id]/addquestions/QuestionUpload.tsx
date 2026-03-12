@@ -101,8 +101,7 @@ export default function QuestionUpload({ testId }: { testId: string }) {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-10 text-black">
-
+    <main className="max-w-5xl mx-auto text-black">
       <div className="border border-gray-300 rounded-lg p-6 mb-8 bg-white">
         <h2 className="text-lg font-semibold mb-4">Add Question Manually</h2>
 
@@ -157,33 +156,6 @@ export default function QuestionUpload({ testId }: { testId: string }) {
         </button>
       </div>
 
-      {/* Upload Button */}
-      <div className="mb-6 flex gap-3">
-        <button
-          onClick={() => fileInput.current?.click()}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Select Excel File
-        </button>
-
-        <input
-          ref={fileInput}
-          type="file"
-          hidden
-          accept=".xlsx"
-          onChange={handleFileSelect}
-        />
-
-        {rows.length > 0 && (
-          <button
-            onClick={() => createQuestions(testId)}
-            className="bg-green-600 text-white px-4 py-2 rounded"
-          >
-            {loading ? "Uploading..." : "Upload Questions"}
-          </button>
-        )}
-      </div>
-
       {/* Preview Table */}
       {rows.length > 0 && (
         <div className="overflow-x-auto border border-gray-400 rounded">
@@ -230,6 +202,6 @@ export default function QuestionUpload({ testId }: { testId: string }) {
           </table>
         </div>
       )}
-    </div>
+    </main>
   );
 }

@@ -20,6 +20,8 @@ export default function TestsPage() {
   const [selectedTestId, setSelectedTestId] = useState<string | null>(null);
   const [editOpen, setEditOpen] = useState(false);
   const [editingTestId, setEditingTestId] = useState<string | null>(null);
+  const [addQuestionsOpen, setAddQuestionsOpen] = useState(false);
+  const [addingTestId, setAddingTestId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchAllTests();
@@ -92,7 +94,10 @@ export default function TestsPage() {
                 <TfiViewListAlt />View Questions
               </button>
               <button 
-                onClick={() => router.push(`/dashboard/tests/${test.id}/addquestions`)}
+                onClick={() => {
+                  setAddingTestId(test.id);
+                  setAddQuestionsOpen(true);
+                }}
               className="px-4 py-2 bg-emerald-300 text-black flex justify-center items-center gap-2 border rounded-lg hover:bg-emerald-500 duration-300">
                 <FaPlus />Add questions
               </button>
@@ -123,6 +128,29 @@ export default function TestsPage() {
             </div>
             <iframe
               src={`/dashboard/tests/${editingTestId}/edit`}
+              className="flex-1 w-full"
+            />
+          </div>
+        </div>
+      )}
+      {addQuestionsOpen && addingTestId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white w-[90vw] h-[85vh] rounded-xl shadow-xl flex flex-col">
+            <div className="flex items-center justify-between border-b px-6 py-3">
+              <h2 className="text-lg text-black">Add Questions</h2>
+              <button
+                onClick={() => {
+                  setAddQuestionsOpen(false);
+                  setAddingTestId(null);
+                }}
+                className="text-sm px-3 py-1 flex justify-center items-center duration-300 border text-black bg-red-300 rounded-lg hover:bg-red-400"
+              >
+                <IoClose className="text-lg" />Exit
+              </button>
+            </div>
+
+            <iframe
+              src={`/dashboard/tests/${addingTestId}/addquestions`}
               className="flex-1 w-full"
             />
           </div>
