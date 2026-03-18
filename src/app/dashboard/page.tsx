@@ -2,6 +2,7 @@
 import CreateTestPage from "./create-test/page";
 import TestsPage from "./tests/page";
 import ProfilePage from "../profile/page";
+import FlashCards from "./flashCard/page";
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "../lib/supabase/client";
 import { useRouter } from "next/navigation";
@@ -10,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { Toaster } from "react-hot-toast";
 
-type Tab = "profile" | "create" | "list";
+type Tab = "profile" | "create" | "list" | "flashcards";
 
 export default function Dashboard() {
   const supabase = createClient();
@@ -21,7 +22,7 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<Tab>(() => {
     if (typeof window !== "undefined") {
       const savedTab = localStorage.getItem("activeTab");
-      if (savedTab === "profile" || savedTab === "create" || savedTab === "list") {
+      if (savedTab === "profile" || savedTab === "create" || savedTab === "list" || savedTab === "flashcards") {
         return savedTab;
       }
     }
@@ -104,6 +105,20 @@ export default function Dashboard() {
           >
             List Exams
           </button>
+          <button
+            ref={(el) => { tabRefs.current[3] = el; }}
+            onClick={() => {
+              gsap.fromTo(tabRefs.current[3], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
+              setActiveTab("flashcards");
+            }}
+            className={`px-4 py-2 rounded-full text-black ${
+              activeTab === "flashcards"
+                ? "bg-linear-to-br text-white from-pink-400 to-purple-400"
+                : ""
+            }`}
+          >
+            Flash Cards
+          </button>
         </div>
 
         {/* Tab Content */}
@@ -145,6 +160,18 @@ export default function Dashboard() {
                 className="space-y-4"
               >
                 <TestsPage />
+              </motion.div>
+            )}
+            {activeTab === "flashcards" && (
+              <motion.div
+                key="flashcards"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-4"
+              >
+                <FlashCards />
               </motion.div>
             )}
           </AnimatePresence>
