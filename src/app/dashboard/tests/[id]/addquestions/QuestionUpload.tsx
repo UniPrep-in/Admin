@@ -13,6 +13,7 @@ type QuestionRow = {
   option_d: string;
   correct: string;
   question_image?: string | null;
+  solution?: string | null;
 };
 
 export default function QuestionUpload({ testId }: { testId: string }) {
@@ -28,6 +29,7 @@ export default function QuestionUpload({ testId }: { testId: string }) {
   const [optionC, setOptionC] = useState("");
   const [optionD, setOptionD] = useState("");
   const [correct, setCorrect] = useState("A");
+  const [solution, setSolution] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const parseFile = async (file: File) => {
@@ -86,6 +88,7 @@ export default function QuestionUpload({ testId }: { testId: string }) {
       option_d: optionD,
       correct,
       question_image: imagePath ?? null,
+      solution: solution || null,
     };
 
     setRows([...rows, newRow]);
@@ -96,6 +99,7 @@ export default function QuestionUpload({ testId }: { testId: string }) {
     setOptionC("");
     setOptionD("");
     setCorrect("A");
+    setSolution("");
     setImageFile(null);
     setQuestionOrder((prev) => prev + 1);
   };
@@ -109,6 +113,13 @@ export default function QuestionUpload({ testId }: { testId: string }) {
           value={questionText}
           onChange={(e) => setQuestionText(e.target.value)}
           placeholder="Enter question text"
+          className="w-full border p-2 rounded mb-4"
+        />
+
+        <textarea
+          value={solution}
+          onChange={(e) => setSolution(e.target.value)}
+          placeholder="Enter solution (optional)"
           className="w-full border p-2 rounded mb-4"
         />
 
@@ -129,11 +140,13 @@ export default function QuestionUpload({ testId }: { testId: string }) {
           </select>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-4 flex flex-col gap-2">
+          <span>If questions has any images for example questions like match the following and patterm based questions</span>
           <input
             type="file"
             accept="image/*"
             onChange={(e)=>setImageFile(e.target.files?.[0] || null)}
+            className="file:bg-emerald-300 file:text-black file:border file:rounded-full file:px-4 file:py-2"
           />
 
           {imageFile && (
@@ -150,7 +163,7 @@ export default function QuestionUpload({ testId }: { testId: string }) {
 
         <button
           onClick={addQuestionManually}
-          className="bg-black text-white px-4 py-2 rounded"
+          className="bg-linear-to-br from-black via-neutral-700 to-black text-white px-6 py-4 rounded-2xl hover:scale-110"
         >
           Add Question
         </button>
@@ -189,6 +202,7 @@ export default function QuestionUpload({ testId }: { testId: string }) {
                 <th className="border border-gray-400 p-2">C</th>
                 <th className="border border-gray-400 p-2">D</th>
                 <th className="border border-gray-400 p-2">Correct</th>
+                <th className="border border-gray-400 p-2">Solution</th>
                 <th className="border border-gray-400 p-2">Image</th>
               </tr>
             </thead>
@@ -204,6 +218,9 @@ export default function QuestionUpload({ testId }: { testId: string }) {
                   <td className="border border-gray-400 p-2">{row.option_d}</td>
                   <td className="border border-gray-400 p-2 font-bold text-blue-700">
                     {row.correct}
+                  </td>
+                  <td className="border border-gray-400 p-2">
+                    {row.solution ? row.solution : "-"}
                   </td>
                   <td className="border border-gray-400 p-2">
                     {row.question_image ? (

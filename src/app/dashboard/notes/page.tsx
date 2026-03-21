@@ -91,9 +91,9 @@ export default function Notes() {
   }
 
   return (
-    <main className="p-6 text-white min-h-screen bg-black">
-      <div className="max-w-2xl mx-auto bg-neutral-950 border border-neutral-800 rounded-xl p-6 shadow-lg">
-        <h1 className="text-2xl font-semibold mb-6 text-center">
+    <main className="p-6 text-black min-h-screen">
+      <div className="max-w-2xl mx-auto bg-white border border-neutral-200 rounded-xl p-6 shadow-lg">
+        <h1 className="text-2xl mb-6 text-center">
           Upload Notes
         </h1>
 
@@ -104,13 +104,13 @@ export default function Notes() {
           <input
             type="text"
             placeholder="Title"
-            className="p-3 rounded-md bg-neutral-900 border border-neutral-700 focus:outline-none focus:border-white"
+            className="p-3 rounded-md bg-neutral-100 border border-neutral-200 focus:outline-none focus:border-white"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
 
           <select
-            className="p-3 rounded-md bg-neutral-900 border border-neutral-700 focus:outline-none focus:border-white"
+            className="p-3 rounded-md bg-neutral-100 border border-neutral-200 focus:outline-none focus:border-white"
             value={bucket}
             onChange={(e) => setBucket(e.target.value)}
           >
@@ -119,7 +119,7 @@ export default function Notes() {
           </select>
 
           <select
-            className="p-3 rounded-md bg-neutral-900 border border-neutral-700 focus:outline-none focus:border-white"
+            className="p-3 rounded-md bg-neutral-100 border border-neutral-200 focus:outline-none focus:border-white"
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
           >
@@ -133,7 +133,7 @@ export default function Notes() {
           </select>
 
           <select
-            className="p-3 rounded-md bg-neutral-900 border border-neutral-700 focus:outline-none focus:border-white"
+            className="p-3 rounded-md bg-neutral-100 border border-neutral-200 focus:outline-none focus:border-white"
             value={stream}
             onChange={(e) => setStream(e.target.value)}
           >
@@ -143,19 +143,19 @@ export default function Notes() {
             <option value="commerce">Arts</option>
           </select>
 
-          <label className="flex flex-col gap-2 text-sm text-neutral-400">
+          <label className="flex flex-col gap-2 text-sm text-black">
             Upload PDF
             <input
               type="file"
               accept="application/pdf"
-              className="p-3 rounded-md bg-neutral-900 border border-neutral-700 file:bg-white file:text-black file:px-4 file:py-1 file:rounded-md"
+              className="p-3 rounded-md bg-neutral-100 border border-neutral-200 file:bg-black file:text-white file:px-4 file:py-1 file:rounded-md"
               onChange={(e) => setFile(e.target.files?.[0] || null)}
             />
           </label>
 
           <button
             type="submit"
-            className="bg-white text-black py-3 rounded-md font-semibold hover:opacity-90 transition disabled:opacity-50"
+            className="bg-linear-to-br from-black via-neutral-700 to-black text-white py-3 rounded-md hover:opacity-90 transition disabled:opacity-50"
             disabled={loading}
           >
             {loading ? "Uploading..." : "Upload Note"}

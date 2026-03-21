@@ -134,24 +134,34 @@ export default function FlashCards() {
   };
 
   return (
-    <main className="p-6 space-y-6">
-      <h1 className="text-xl font-bold">Flashcards Admin Panel</h1>
+    <main className="p-6 flex flex-col gap-2">
+      <span className="text-black text-lg">Download this template below to add the flashcards in the required format</span>
 
       {/* Download Template */}
       <button
         onClick={downloadTemplate}
-        className="px-4 py-2 bg-blue-500 text-white rounded"
+        className="px-4 py-2 bg-white-500 text-blue-500 border border-blue-500 rounded w-fit"
       >
         Download Excel Template
       </button>
 
+      <span className="text-black text-lg">Upload here click on this button and choose the file to upload make sure the file is in .xlsx or .xls format</span>
       {/* Upload File */}
-      <div>
-        <input
-          type="file"
-          accept=".xlsx, .xls"
-          onChange={handleFileUpload}
-        />
+      <div className="w-full max-w-md">
+        <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-blue-400 rounded-lg cursor-pointer bg-blue-50 hover:bg-blue-100 transition">
+          <div className="flex flex-col items-center justify-center pt-5 pb-6">
+            <p className="mb-2 text-sm text-blue-700">
+              <span className="font-semibold">Click to upload</span> or drag and drop
+            </p>
+            <p className="text-xs text-blue-500">.xlsx or .xls files only</p>
+          </div>
+          <input
+            type="file"
+            accept=".xlsx, .xls"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+        </label>
       </div>
     </main>
   );
