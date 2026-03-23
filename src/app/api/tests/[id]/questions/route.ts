@@ -25,7 +25,7 @@ export async function POST(
     }
 
     for (const q of questions) {
-      // 1️⃣ Insert question
+      // 1️⃣ Insert question with solution
       const { data: question, error: qError } = await supabase
         .from("questions")
         .insert({
@@ -33,6 +33,7 @@ export async function POST(
           question_text: q.question_text,
           question_order: q.question_order,
           question_image: q.question_image ?? null,
+          solution: q.solution ?? null, // Add solution field
         })
         .select()
         .single();
@@ -84,21 +85,18 @@ export async function POST(
   }
 }
 
-
 // Get questions and options by test id 
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-     const auth = await requireAdmin();
+    const auth = await requireAdmin();
     if (auth.error) return auth.error;
 
-    const { supabase } = auth
+    const { supabase } = auth;
 
     const { id } = await params;
-
-    
 
     const { data, error } = await supabase
       .from("questions")
@@ -107,6 +105,7 @@ export async function GET(
         question_text,
         question_order,
         question_image,
+        solution,
         options (
           id,
           option_text,

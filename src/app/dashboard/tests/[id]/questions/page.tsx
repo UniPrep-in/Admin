@@ -9,8 +9,8 @@ export default function QuestionsPage() {
 
   return (
     <div>
-        <Navbar/>
-      <h1 className="text-xl font-bold text-black mb-6">
+      <Navbar/>
+      <h1 className="text-xl text-center py-6 font-bold text-black">
         Questions List
       </h1>
 
