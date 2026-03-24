@@ -155,7 +155,7 @@ export default function Notes() {
 
           <button
             type="submit"
-            className="bg-linear-to-br from-black via-neutral-700 to-black text-white py-3 rounded-md hover:opacity-90 transition disabled:opacity-50"
+            className="bg-emerald-300 border text-black py-3 rounded-2xl hover:scale-105 transition disabled:opacity-50"
             disabled={loading}
           >
             {loading ? "Uploading..." : "Upload Note"}

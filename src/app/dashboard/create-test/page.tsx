@@ -24,9 +24,9 @@ export default function CreateTestPage() {
   return (
     <div className="max-w-2xl mx-auto mt-8 px-4">
       <div className="bg-white border border-neutral-200 rounded-2xl shadow-sm p-8">
-        <div className="mb-6">
-          <h1 className="text-2xl font-semibold text-neutral-900">Create Exam</h1>
-          <p className="text-sm text-neutral-500">Configure a new mock test for students</p>
+        <div className="mb-6 border-b pb-4 border-b-black">
+          <h1 className="text-2xl text-black text-center">Launch Exam</h1>
+          <p className="text-sm text-neutral-500 text-center">Configure a new mock test for students</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -117,7 +117,7 @@ export default function CreateTestPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-black text-white py-3 rounded-full font-medium hover:bg-neutral-800 transition disabled:opacity-50"
+            className="w-full bg-emerald-300 border border-black text-black py-3 rounded-2xl hover:scale-105 duration-300 transition disabled:opacity-50"
           >
             {loading ? "Creating Exam..." : "Create Exam"}
           </button>
