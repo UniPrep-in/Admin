@@ -1,5 +1,5 @@
 "use client";
-
+import Loader from "@/app/components/ui/loader";
 import { useEffect, useState } from "react";
 import { useQuestionStore } from "@/store/questionStore";
 
@@ -95,15 +95,15 @@ export default function QuestionsTable({ testId }: { testId: string }) {
 
   if (loading) {
     return (
-      <div className="p-10 text-center text-black">
-        Loading Questions...
+      <div className="flex items-center justify-center">
+        <Loader />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto mt-10 px-4">
-      <h1 className="text-black mb-4">No of Questions {questions.length}</h1>
+    <div className="max-w-7xl mx-auto my-4 px-4">
+      <h1 className="text-black text-center mb-4">No of Questions : {questions.length}</h1>
       
       <div className="overflow-x-auto">
         <table className="w-full border border-gray-400 text-black">
