@@ -21,6 +21,8 @@ export default function TestsPage() {
   const [editOpen, setEditOpen] = useState(false);
   const [editingTestId, setEditingTestId] = useState<string | null>(null);
   const [addQuestionsOpen, setAddQuestionsOpen] = useState(false);
+  const [selectedStream, setSelectedStream] = useState<string>("All");
+  const [selectedSubStream, setSelectedSubStream] = useState<string>("All");
   const [addingTestId, setAddingTestId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -38,9 +40,61 @@ export default function TestsPage() {
   return (
     <main className="py-8">
       <h1 className="text-2xl text-black mb-6">All Mocks</h1>
+      <div className="flex text-black items-center gap-3 mb-2 flex-wrap">
+        Stream :
+        {["All","Science","Commerce","Arts","GAT","English"].map((stream) => (
+          <button
+            key={stream}
+            onClick={() => {
+              setSelectedStream(stream);
+              setSelectedSubStream("All");
+            }}
+            className={`px-4 py-2 rounded-lg border text-sm ${
+              selectedStream === stream
+                ? "bg-black text-white"
+                : "bg-white text-black border-neutral-300"
+            }`}
+          >
+            {stream}
+          </button>
+        ))}
+      </div>
+
+      {selectedStream !== "All" && (
+        <div className="flex items-center text-black gap-2 mb-6 flex-wrap">
+          Subject :
+          {(
+            selectedStream === "Commerce"
+              ? ["All","Economics","Business Studies","Accountancy","Maths"]
+              : selectedStream === "Science"
+              ? ["All","Physics","Chemistry","Maths","Biology"]
+              : selectedStream === "Arts"
+              ? ["All","History","Politics","Economics","Geography","Sociology","Philosophy"]
+              : ["All"]
+          ).map((sub) => (
+            <button
+              key={sub}
+              onClick={() => setSelectedSubStream(sub)}
+              className={`px-6 py-2 rounded-lg border text-sm ${
+                selectedSubStream === sub
+                  ? "bg-black text-white"
+                  : "bg-white text-black border-neutral-300"
+              }`}
+            >
+              {sub}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {tests.map((test) => (
+        {tests
+          .filter((test) => {
+            if (selectedStream !== "All" && test.stream !== selectedStream) return false;
+            if (selectedSubStream !== "All" && test.subject !== selectedSubStream) return false;
+            return true;
+          })
+          .map((test) => (
           <div
         
             key={test.id}
@@ -106,7 +160,11 @@ export default function TestsPage() {
         ))}
       </div>
 
-      {tests.length === 0 && (
+      {tests.filter((test) => {
+        if (selectedStream !== "All" && test.stream !== selectedStream) return false;
+        if (selectedSubStream !== "All" && test.subject !== selectedSubStream) return false;
+        return true;
+      }).length === 0 && (
         <div className="text-gray-500 mt-10 text-center">
           No exams created yet.
         </div>
