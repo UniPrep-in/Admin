@@ -17,6 +17,7 @@ import { TbPencilCode } from "react-icons/tb";
 import { FaListUl } from "react-icons/fa6";
 import { TbCardsFilled } from "react-icons/tb";
 import { FaNoteSticky } from "react-icons/fa6";
+import { RiCoupon3Line } from "react-icons/ri";
 
 type Tab = "profile" | "create" | "list" | "flashcards" | "notes" | "coupons";
 
@@ -133,13 +134,13 @@ export default function Dashboard() {
               gsap.fromTo(tabRefs.current[5], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
               setActiveTab("coupons");
             }}
-            className={`px-4 py-2 rounded-full text-black ${
+            className={`px-4 py-2 flex items-center justify-center gap-2 rounded-full text-black ${
               activeTab === "coupons"
-                ? "bg-linear-to-br text-white from-pink-400 to-purple-400"
+                ? "text-black bg-amber-400 border"
                 : ""
             }`}
           >
-            Coupons
+            <RiCoupon3Line />Coupons
           </button>
         </div>
 
