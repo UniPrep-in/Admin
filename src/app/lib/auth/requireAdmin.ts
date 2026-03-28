@@ -5,7 +5,6 @@ export async function requireAdmin() {
   const supabase = await createClient();
 console.log("here");
 
-  // check logged in user
   const {
     data: { user },
     error: authError,

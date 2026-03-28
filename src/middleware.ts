@@ -26,7 +26,6 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession()
 
-  // Not logged in
   if (!session) {
     return NextResponse.redirect(new URL("/auth", req.url))
   }
