@@ -6,9 +6,7 @@ export default function UploadPage() {
   const { id } = useParams();
 
   return (
-    <div>
-      <h1 className="text-xl font-bold mb-6">Upload Questions</h1>
-
+    <div className="py-6">
       <QuestionUpload testId={id as string} />
     </div>
   );

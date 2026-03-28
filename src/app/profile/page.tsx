@@ -54,10 +54,10 @@ export default function ProfilePage() {
         <div className="max-w-3xl mx-auto mt-10 px-4">
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <div className="flex justify-between items-center mb-6">
-              <h1 className="text-xl text-black">Edit Profile</h1>
+              <h1 className="text-xl text-black">Your Profile</h1>
               <button
                 onClick={() => setEditing(false)}
-                className="text-sm text-white bg-black px-4 py-2 rounded-full shadow-lg"
+                className="text-sm text-black bg-red-300 border px-6 py-2 rounded-full shadow-lg"
               >
                 Back
               </button>
@@ -109,7 +109,7 @@ export default function ProfilePage() {
           <div className="mt-8 flex justify-end">
             <button
               onClick={() => setEditing(true)}
-              className="bg-black text-white px-6 py-2 rounded-lg hover:bg-neutral-800 transition"
+              className="bg-blue-300 border text-black px-6 py-2 rounded-lg hover:scale-110 duration-300 transition"
             >
               Edit Profile
             </button>

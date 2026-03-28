@@ -88,7 +88,7 @@ return (
       <input
         type="file"
         accept="image/*"
-        className="w-full text-sm text-white px-4 py-2 rounded-full bg-linear-to-br from-blue-400 to-blue-500"
+        className="w-full text-black text-sm file:text-black file:rounded-full file:px-4 file:py-2 file:bg-linear-to-br file:from-blue-300 file:to-blue-300"
         onChange={(e) => setFile(e.target.files?.[0] || null)}
         required
       />

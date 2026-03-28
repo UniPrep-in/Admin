@@ -15,6 +15,8 @@ export default function EditExamPage() {
     marks,
     neg_marks,
     loading,
+    subject,
+    stream,
     setField,
     fetchTestById,
     updateTest,
@@ -106,6 +108,33 @@ export default function EditExamPage() {
               placeholder="Negative marks"
             />
           </div>
+        </div>
+
+        {/* Subject and Stream fields */}
+        <div className="bg-white border border-neutral-200 rounded-xl p-4">
+          <label className="block text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-2">
+            Subject
+          </label>
+          <input
+            type="text"
+            value={subject}
+            onChange={(e) => setField("subject", e.target.value)}
+            className="text-black w-full border border-neutral-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter subject"
+          />
+        </div>
+
+        <div className="bg-white border border-neutral-200 rounded-xl p-4">
+          <label className="block text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-2">
+            Stream
+          </label>
+          <input
+            type="text"
+            value={stream}
+            onChange={(e) => setField("stream", e.target.value)}
+            className="text-black w-full border border-neutral-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter stream"
+          />
         </div>
 
         <div className="md:col-span-2 flex gap-3 pt-2">

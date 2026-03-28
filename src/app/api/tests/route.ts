@@ -4,22 +4,20 @@ import { requireAdmin } from "@/app/lib/auth/requireAdmin";
 
 export async function POST(req: Request) {
   try {
-    const auth=await requireAdmin()
+    const auth = await requireAdmin();
+    if (auth.error) return auth.error;
+    const { supabase } = auth;
 
-    if(auth.error)return auth.error
-    const {supabase}=auth
- 
     const body = await req.json();
-    const { year, title, duration_minutes,marks,neg_marks } = body;
+    const { year, title, duration_minutes, marks, neg_marks, subject, stream } = body;
 
-    if (!year || !title || !duration_minutes  || !marks || !neg_marks) {
+    if (!year || !title || !duration_minutes || !marks || !neg_marks) {
       return NextResponse.json(
         { error: "All fields required" },
         { status: 400 }
       );
     }
 
-    // 4️⃣ Insert exam
     const { data, error } = await supabase
       .from("tests")
       .insert([
@@ -27,9 +25,11 @@ export async function POST(req: Request) {
           year,
           title,
           duration_minutes,
-          total_marks:0,
+          total_marks: 0,
           marks,
-          negative_marks:neg_marks
+          negative_marks: neg_marks,
+          subject,
+          stream,
         },
       ])
       .select();
@@ -57,28 +57,29 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(){
+export async function GET() {
   try {
-    const supabase=await createClient()
+    const supabase = await createClient();
 
-    const {data,error}= await supabase.from('tests').select("*").order("created_at",{ascending:false})
-  
+    const { data, error } = await supabase
+      .from('tests')
+      .select("*")
+      .order("created_at", { ascending: false });
 
-    if(error){
+    if (error) {
       return NextResponse.json(
-        {error:error.message},
-        {status:500}
-      )
+        { error: error.message },
+        { status: 500 }
+      );
     }
 
-
     return NextResponse.json({
-      exams:data
-    })
-  }catch(error){
+      exams: data
+    });
+  } catch (error) {
     return NextResponse.json(
-      {error:"Server error"},
-      {status:500}
-    )
+      { error: "Server error" },
+      { status: 500 }
+    );
   }
 }

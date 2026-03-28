@@ -4,6 +4,7 @@ import TestsPage from "./tests/page";
 import ProfilePage from "../profile/page";
 import FlashCards from "./flashCard/page";
 import CouponsPage from "./coupons/page";
+import Notes from "./notes/page";
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "../lib/supabase/client";
 import { useRouter } from "next/navigation";
@@ -11,8 +12,14 @@ import Navbar from "../components/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { Toaster } from "react-hot-toast";
+import { CgProfile } from "react-icons/cg";
+import { TbPencilCode } from "react-icons/tb";
+import { FaListUl } from "react-icons/fa6";
+import { TbCardsFilled } from "react-icons/tb";
+import { FaNoteSticky } from "react-icons/fa6";
 
 type Tab = "profile" | "create" | "list" | "flashcards" | "coupons";
+type Tab = "profile" | "create" | "list" | "flashcards" | "notes";
 
 export default function Dashboard() {
   const supabase = createClient();
@@ -55,13 +62,13 @@ export default function Dashboard() {
               gsap.fromTo(tabRefs.current[0], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
               setActiveTab("profile");
             }}
-            className={`px-4 py-2 rounded-full text-black ${
+            className={`px-4 py-2 flex gap-2 justify-center items-center rounded-full text-black ${
               activeTab === "profile"
-                ? "bg-linear-to-br text-white from-pink-400 to-purple-400"
+                ? "text-black bg-amber-400 border"
                 : ""
             }`}
           >
-            Profile
+            <CgProfile />Profile
           </button>
 
           <button
@@ -70,13 +77,13 @@ export default function Dashboard() {
               gsap.fromTo(tabRefs.current[1], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
               setActiveTab("create");
             }}
-            className={`px-4 py-2 rounded-full text-black ${
+            className={`px-4 py-2 flex items-center justify-center gap-2 rounded-full text-black ${
               activeTab === "create"
-                ? "bg-linear-to-br text-white from-pink-400 to-purple-400"
+                ? "text-black bg-amber-400 border"
                 : ""
             }`}
           >
-            Create Exam
+            <TbPencilCode />Create Exam
           </button>
 
           <button
@@ -85,13 +92,13 @@ export default function Dashboard() {
               gsap.fromTo(tabRefs.current[2], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
               setActiveTab("list");
             }}
-            className={`px-4 py-2 rounded-full text-black ${
+            className={`px-4 py-2 flex items-center justify-center gap-2 rounded-full text-black ${
               activeTab === "list"
-                ? "bg-linear-to-br text-white from-pink-400 to-purple-400"
+                ? "text-black bg-amber-400 border"
                 : ""
             }`}
           >
-            List Exams
+            <FaListUl />List Exams
           </button>
           <button
             ref={(el) => { tabRefs.current[3] = el; }}
@@ -99,13 +106,27 @@ export default function Dashboard() {
               gsap.fromTo(tabRefs.current[3], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
               setActiveTab("flashcards");
             }}
-            className={`px-4 py-2 rounded-full text-black ${
+            className={`px-4 py-2 flex items-center justify-center gap-2 rounded-full text-black ${
               activeTab === "flashcards"
-                ? "bg-linear-to-br text-white from-pink-400 to-purple-400"
+                ? "text-black bg-amber-400 border"
                 : ""
             }`}
           >
-            Flash Cards
+            <TbCardsFilled />Flash Cards
+          </button>
+          <button
+            ref={(el) => { tabRefs.current[4] = el; }}
+            onClick={() => {
+              gsap.fromTo(tabRefs.current[4], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
+              setActiveTab("notes");
+            }}
+            className={`px-4 py-2 flex items-center justify-center gap-2 rounded-full text-black ${
+              activeTab === "notes"
+                ? "text-black bg-amber-400 border"
+                : ""
+            }`}
+          >
+            <FaNoteSticky />Notes
           </button>
           <button
             ref={(el) => { tabRefs.current[4] = el; }}
@@ -179,6 +200,9 @@ export default function Dashboard() {
             {activeTab === "coupons" && (
               <motion.div
                 key="coupons"
+            {activeTab === "notes" && (
+              <motion.div
+                key="notes"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -186,6 +210,7 @@ export default function Dashboard() {
                 className="space-y-4"
               >
                 <CouponsPage />
+                <Notes />
               </motion.div>
             )}
           </AnimatePresence>

@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
-import { FcGoogle } from "react-icons/fc";
 
 export default function AuthForm() {
   const router = useRouter();
@@ -53,12 +51,12 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-linear-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center p-4">
+    <div className="min-h-screen w-full bg-linear-to-br from-slate-100 via-white to-slate-100 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-full max-w-xl bg-white rounded-3xl shadow-2xl shadow-slate-200/50 overflow-hidden"
+        className="w-full max-w-xl bg-white border border-black/10 rounded-3xl shadow-2xl shadow-slate-200/50 overflow-hidden"
       >
         {/* Right Side - Form */}
         <div className="w-full p-8 lg:p-12 flex flex-col justify-center">
@@ -68,11 +66,11 @@ export default function AuthForm() {
               <motion.h1
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="text-2xl font-bold text-slate-900 mb-2"
+                className="text-2xl text-center text-black mb-2"
               >
                 Welcome back Admin
               </motion.h1>
-              <p className="text-slate-500 text-sm">
+              <p className="text-neutral-500 text-center">
                 Enter your credentials to access your admin account
               </p>
             </div>
@@ -142,12 +140,13 @@ export default function AuthForm() {
               </div>
 
               {/* Submit */}
-              <motion.button
+              <motion.div className="bg-linear-to-br from-emerald-500 to-blue-500 p-1 rounded-full">
+                <motion.button
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 type="submit"
                 disabled={loading}
-                className="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-slate-900/20 hover:shadow-xl hover:shadow-slate-900/30"
+                className="w-full bg-linear-to-b from-black via-neutral-800 to-black hover:scale-110 text-white font-medium py-3 rounded-full flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-slate-900/20 hover:shadow-xl hover:shadow-slate-900/30"
               >
                 {loading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -155,6 +154,7 @@ export default function AuthForm() {
                   "Sign in"
                 )}
               </motion.button>
+              </motion.div>
             </form>
           </div>
         </div>

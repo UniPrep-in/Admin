@@ -9,6 +9,7 @@ type QuestionRow = {
   option_c: string;
   option_d: string;
   correct: string;
+  solution?: string | null;
 };
 
 type Option = {
@@ -22,6 +23,7 @@ type Question = {
   question_text: string;
   question_order: number;
   options: Option[];
+  solution?: string | null;
 };
 
 type QuestionState = {
