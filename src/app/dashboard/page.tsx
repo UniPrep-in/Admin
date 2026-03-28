@@ -3,6 +3,7 @@ import CreateTestPage from "./create-test/page";
 import TestsPage from "./tests/page";
 import ProfilePage from "../profile/page";
 import FlashCards from "./flashCard/page";
+import CouponsPage from "./coupons/page";
 import Notes from "./notes/page";
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "../lib/supabase/client";
@@ -17,6 +18,7 @@ import { FaListUl } from "react-icons/fa6";
 import { TbCardsFilled } from "react-icons/tb";
 import { FaNoteSticky } from "react-icons/fa6";
 
+type Tab = "profile" | "create" | "list" | "flashcards" | "coupons";
 type Tab = "profile" | "create" | "list" | "flashcards" | "notes";
 
 export default function Dashboard() {
@@ -24,20 +26,7 @@ export default function Dashboard() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  const [activeTab, setActiveTab] = useState<Tab>(() => {
-    if (typeof window !== "undefined") {
-      const savedTab = localStorage.getItem("activeTab");
-      if (savedTab === "profile" || savedTab === "create" || savedTab === "list" || savedTab === "flashcards") {
-        return savedTab;
-      }
-    }
-    return "profile";
-  });
-
-  useEffect(() => {
-    localStorage.setItem("activeTab", activeTab);
-  }, [activeTab]);
+  const [activeTab, setActiveTab] = useState<Tab>("profile");
 
   useEffect(() => {
     const checkUser = async () => {
@@ -139,6 +128,20 @@ export default function Dashboard() {
           >
             <FaNoteSticky />Notes
           </button>
+          <button
+            ref={(el) => { tabRefs.current[4] = el; }}
+            onClick={() => {
+              gsap.fromTo(tabRefs.current[4], { scale: 0.9 }, { scale: 1, duration: 0.25, ease: "power2.out" });
+              setActiveTab("coupons");
+            }}
+            className={`px-4 py-2 rounded-full text-black ${
+              activeTab === "coupons"
+                ? "bg-linear-to-br text-white from-pink-400 to-purple-400"
+                : ""
+            }`}
+          >
+            Coupons
+          </button>
         </div>
 
         {/* Tab Content */}
@@ -194,6 +197,9 @@ export default function Dashboard() {
                 <FlashCards />
               </motion.div>
             )}
+            {activeTab === "coupons" && (
+              <motion.div
+                key="coupons"
             {activeTab === "notes" && (
               <motion.div
                 key="notes"
@@ -203,6 +209,7 @@ export default function Dashboard() {
                 transition={{ duration: 0.25 }}
                 className="space-y-4"
               >
+                <CouponsPage />
                 <Notes />
               </motion.div>
             )}
